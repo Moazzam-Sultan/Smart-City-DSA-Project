@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.nio.file.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner; // Scanner import add kiya hai
+import java.util.Scanner;
 
 public class Main {
 
@@ -19,42 +19,38 @@ public class Main {
         TrafficSignalManager signalManager  = new TrafficSignalManager();
         NavigationService navigation        = new NavigationService(city, logger);
 
-        // Ek dafa shuru mein map print kar dete hain taake nodes ke IDs yaad rahein
         separator("CITY MAP LOADED (Data Structure 1)");
         city.printGraph();
 
-        // Scanner initialize kiya user input ke liye
         Scanner scanner = new Scanner(System.in);
 
-        // While loop taake program multiple routes find kar sake bina band hue
         while (true) {
             separator("DYNAMIC ROUTE FINDER");
-            System.out.println("  Map ke Mutabiq IDs (1 se 10 tak) Enter Karein.");
-            System.out.println("  Program band karne ke liye '0' dabayen.\n");
+            System.out.println("  Enter a valid Node ID (from 1 to 10) based on the map.");
+            System.out.println("  Press '0' to exit the program.\n");
 
-            System.out.print("  [?] Kahan se shuru karna hai? (Source ID): ");
+            System.out.print("  [?] Enter Source Node ID: ");
             int source = scanner.nextInt();
 
             if (source == 0) {
-                System.out.println("\n  [!] System Shutting Down... Allah Hafiz!");
+                System.out.println("\n  [!] System Shutting Down... Goodbye!");
                 break;
             }
 
-            System.out.print("  [?] Kahan jana hai? (Destination ID): ");
+            System.out.print("  [?] Enter Destination Node ID: ");
             int dest = scanner.nextInt();
 
-            System.out.print("  [?] Kya yeh Emergency hai? (1 = Yes, 2 = No): ");
+            System.out.print("  [?] Is this an emergency? (1 = Yes, 2 = No): ");
             int emergencyInput = scanner.nextInt();
             boolean isEmergency = (emergencyInput == 1);
 
             separator("CALCULATING SHORTEST PATH...");
 
-            // User ki di hui values ke sath Dijkstra run hoga
             navigation.startJourney(source, dest, isEmergency, false);
 
-            System.out.println("\n  (Agla route search karne ke liye Enter dabayen...)");
-            scanner.nextLine(); // Consume newline left by nextInt
-            scanner.nextLine(); // Wait for user to press Enter
+            System.out.println("\n  (Press Enter to search for another route...)");
+            scanner.nextLine();
+            scanner.nextLine();
         }
 
         scanner.close();
@@ -62,18 +58,19 @@ public class Main {
 
     private static void printBanner() {
         System.out.println();
-        System.out.println("  ╔══════════════════════════════════════════════════════════╗");
-        System.out.println("  ║   Smart City Traffic & Emergency Navigation System       ║");
-        System.out.println("  ║──────────────────────────────────────────────────────────║");
-
+        System.out.println("  ==========================================================");
+        System.out.println("     Smart City Traffic & Emergency Navigation System       ");
+        System.out.println("  ----------------------------------------------------------");
+        System.out.println("     Student  : Moazzam Sultan Baig                         ");
+        System.out.println("     Section  : Section 2                                   ");
+        System.out.println("  ==========================================================");
         System.out.println();
     }
 
     private static void separator(String title) {
-        System.out.println("\n");
-
+        System.out.println("\n  -------------------------------------------------------------");
         System.out.println("    " + title);
-        System.out.println("  ");
+        System.out.println("  -------------------------------------------------------------");
     }
 }
 
@@ -167,12 +164,12 @@ class Logger {
 
     private void writeHeader(String path, String title) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(path, false))) {
-            pw.println("=".repeat(60));
+            pw.println("============================================================");
             pw.println("  Smart City Traffic & Emergency Navigation System");
             pw.println("  " + title);
             pw.println("  Session started: " + LocalDateTime.now().format(FORMATTER));
             pw.println("  Student: Moazzam Sultan Baig | Section 2");
-            pw.println("=".repeat(60));
+            pw.println("============================================================");
         } catch (IOException e) {
             System.err.println("[LOGGER] Header write failed: " + e.getMessage());
         }
@@ -193,7 +190,7 @@ class Logger {
         } catch (IOException e) {
             System.err.println("[LOGGER] Write failed: " + e.getMessage());
         }
-        System.out.println("  📝 LOG: " + entry);
+        System.out.println("  LOG: " + entry);
     }
 
     public String getNavLogPath()       { return navLogPath; }
