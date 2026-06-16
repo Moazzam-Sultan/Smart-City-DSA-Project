@@ -72,12 +72,12 @@ class CityGraph {
     public int getTotalRoads()         { return totalRoads; }
 
     public void printGraph() {
-        System.out.println("\n╔══════════════════════════════════════════════════╗");
-        System.out.println("║         CITY GRAPH - ADJACENCY LIST               ║");
-        System.out.println("╚══════════════════════════════════════════════════╝");
+        System.out.println("\n-------------------------------------------------------");
+        System.out.println("         CITY GRAPH - ADJACENCY LIST               ");
+        System.out.println("----------------------------------------------------------");
         System.out.printf("  Total Intersections : %d%n", getTotalIntersections());
         System.out.printf("  Total Roads         : %d%n", getTotalRoads());
-        System.out.println("  ─────────────────────────────────────────────────");
+        System.out.println("----------------------------------------------------------");
 
         for (Map.Entry<Integer, Intersection> entry : intersections.entrySet()) {
             int id = entry.getKey();
@@ -189,9 +189,9 @@ class DijkstraAlgorithm {
     }
 
     public static void printResult(ShortestPathResult result, CityGraph graph) {
-        System.out.println("\n  ╔═══════════════════════════════════════════════════╗");
-        System.out.println("  ║           SHORTEST PATH RESULT                    ║");
-        System.out.println("  ║═══════════════════════════════════════════════════║");
+        System.out.println("\n -----------------------------------------------------");
+        System.out.println("            SHORTEST PATH RESULT                    ");
+        System.out.println("  -------------------------------------------------------");
         if (!result.pathFound) {
             System.out.println("  ✗ No path available (all routes blocked).");
             return;
@@ -351,15 +351,15 @@ class EmergencyFleet {
     public int getAvailableCount() { return (int) vehicles.stream().filter(EmergencyVehicle::isAvailable).count(); }
 
     public void printFleet() {
-        System.out.println("\n  ┌─────────────────────────────────────────────────────────────────────────────┐");
+
         System.out.printf ("  │  EMERGENCY FLEET — Zone: %-50s│%n", zoneName);
-        System.out.println("  ├────────────┬──────────────┬─────────────┬────────┬─────────┬────────────────┤");
+
         for (EmergencyVehicle v : vehicles) {
             System.out.printf("  │ %-10s │ %-12s │ %-11s │ %-6d │ %-7d │ %-14s │%n",
                     v.getVehicleId(), v.getVehicleType(), v.getStatus(), v.getBaseIntersectionId(), v.getCurrentIntersectionId(),
                     v.getAssignedMission().length() > 14 ? v.getAssignedMission().substring(0, 11) + "..." : v.getAssignedMission());
         }
-        System.out.println("  └────────────┴──────────────┴─────────────┴────────┴─────────┴────────────────┘");
+
     }
 }
 
@@ -419,7 +419,7 @@ class NavigationService {
     }
 
     public void printStatus() {
-        System.out.println("\n  ── Navigation Status ──────────────────────────");
+        System.out.println("\n  ----Navigation Status-------------------------");
         pathStack.printPath();
     }
 }
